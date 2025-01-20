@@ -16,11 +16,22 @@ args=parser.parse_args()
 print('open txt file...')
 with open(args.txt, "r") as f:
     data = f.readlines()
+# print(f"{data[0]}")
+# print(f"{data[1]}")
 for i in range(len(data)):
-    data[i] = data[i].split()
+    data[i] = data[i].split(',')[:3]
 
-print('to DataFrame...')
+
 df = pd.DataFrame(data[1:])
+
+# 设置列名
+if df.shape[1] == 3:
+    df.columns = ['src', 'dst', 'time']
+else:
+    print("DataFrame does not have 3 columns. Current columns:")
+    print(df.columns)
+print('to DataFrame...')
+
 df.columns = ['src','dst','time']   
 
 print('reindex...')
@@ -50,26 +61,26 @@ values[int(0.85*len(df)):] = 2
 df['ext_roll'] = values
 
 print('save csv...')
-df.to_csv('./DATA/{}/edges.csv'.format(args.data))
+df.to_csv('/home/volume/{}/edges.csv'.format(args.data))
 
 print('generate graph...')
 #gen_graph
-df = pd.read_csv('./DATA/{}/edges.csv'.format(args.data))
+df = pd.read_csv('/home/volume/{}/edges.csv'.format(args.data))
 
 num_nodes = max(int(df['src'].max()), int(df['dst'].max())) + 1
 print('num_nodes: ', num_nodes)
 
-int_train_indptr = np.zeros(num_nodes + 1, dtype=np.int)
+int_train_indptr = np.zeros(num_nodes + 1, dtype=np.int_)
 int_train_indices = [[] for _ in range(num_nodes)]
 int_train_ts = [[] for _ in range(num_nodes)]
 int_train_eid = [[] for _ in range(num_nodes)]
 
-int_full_indptr = np.zeros(num_nodes + 1, dtype=np.int)
+int_full_indptr = np.zeros(num_nodes + 1, dtype=np.int_)
 int_full_indices = [[] for _ in range(num_nodes)]
 int_full_ts = [[] for _ in range(num_nodes)]
 int_full_eid = [[] for _ in range(num_nodes)]
 
-ext_full_indptr = np.zeros(num_nodes + 1, dtype=np.int)
+ext_full_indptr = np.zeros(num_nodes + 1, dtype=np.int_)
 ext_full_indices = [[] for _ in range(num_nodes)]
 ext_full_ts = [[] for _ in range(num_nodes)]
 ext_full_eid = [[] for _ in range(num_nodes)]
@@ -104,4 +115,4 @@ for i in tqdm(range(int_train_indptr.shape[0] - 1)):
 
 print('saving...')
 
-np.savez('./DATA/{}/ext_full.npz'.format(args.data), indptr=ext_full_indptr, indices=ext_full_indices, ts=ext_full_ts, eid=ext_full_eid)
+np.savez('/home/volume/{}/ext_full.npz'.format(args.data), indptr=ext_full_indptr, indices=ext_full_indices, ts=ext_full_ts, eid=ext_full_eid)

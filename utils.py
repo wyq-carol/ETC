@@ -9,13 +9,13 @@ import time
 
 def load_feat(d):
     node_feats = None
-    if os.path.exists('DATA/{}/node_features.pt'.format(d)):
-        node_feats = torch.load('DATA/{}/node_features.pt'.format(d))
+    if os.path.exists('/home/volume/{}/node_features.pt'.format(d)):
+        node_feats = torch.load('/home/volume/{}/node_features.pt'.format(d))
         if node_feats.dtype == torch.bool:
             node_feats = node_feats.type(torch.float32)
     edge_feats = None
-    if os.path.exists('DATA/{}/edge_features.pt'.format(d)):
-        edge_feats = torch.load('DATA/{}/edge_features.pt'.format(d))
+    if os.path.exists('/home/volume/{}/edge_features.pt'.format(d)):
+        edge_feats = torch.load('/home/volume/{}/edge_features.pt'.format(d))
         if edge_feats.dtype == torch.bool:
             edge_feats = edge_feats.type(torch.float32)
    
@@ -32,8 +32,8 @@ def load_feat(d):
     return node_feats, edge_feats
 
 def load_graph(d):
-    df = pd.read_csv('DATA/{}/edges.csv'.format(d))
-    g = np.load('DATA/{}/ext_full.npz'.format(d))
+    df = pd.read_csv('/home/volume/{}/edges.csv'.format(d))
+    g = np.load('/home/volume/{}/ext_full.npz'.format(d))
     return g, df
 
 def parse_config(f):
