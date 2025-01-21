@@ -19,13 +19,14 @@ def load_feat(d):
         if edge_feats.dtype == torch.bool:
             edge_feats = edge_feats.type(torch.float32)
    
-    if d == 'STACKOVERFLOW':
+    if d == 'STACKOVERFLOW' or d == 'stackoverflow':
         edge_feats = torch.randn(63497049, 172)
         node_feats = torch.randn(2601977, 172)
-    if d == 'LASTFM':
+    if d == 'LASTFM' or d == 'lastfm':
         edge_feats = torch.randn(1293103, 128)
-        node_feats = torch.randn(1980,128)
-    if d == 'WIKITALK':
+        node_feats = torch.randn(1980, 128)
+    if d == 'WIKITALK' or d =='wiki-talk':
+        edge_feats = torch.randn(7833140, 172)
         node_feats = torch.randn(1140149, 172)
     
     

@@ -18,9 +18,12 @@ with open(args.txt, "r") as f:
     data = f.readlines()
 # print(f"{data[0]}")
 # print(f"{data[1]}")
-for i in range(len(data)):
-    data[i] = data[i].split(',')[:3]
-
+if args.data == "lastfm":
+    for i in range(len(data)):
+        data[i] = data[i].split(',')[:3]
+if args.data == "wiki-talk" or args.data == "stackoverflow":
+    for i in range(len(data)):
+        data[i] = data[i].split()
 
 df = pd.DataFrame(data[1:])
 

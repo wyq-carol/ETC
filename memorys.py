@@ -201,6 +201,8 @@ class MailBox():
                 if self.memory_param['mail_combine'] == 'last':
                     mail = mail.to(self.device)
                     mail_ts = mail_ts.to(self.device)
+                    nid = nid.to(self.device)
+                    self.next_mail_pos = self.next_mail_pos.to(self.device)
                     self.mailbox[nid.long(), self.next_mail_pos[nid.long()]] = mail
                     self.mailbox_ts[nid.long(), self.next_mail_pos[nid.long()]] = mail_ts
                     if self.memory_param['mailbox_size'] > 1:
