@@ -23,8 +23,8 @@ gnn:
     dim_time: 100
     dim_out: 100
 train:
-  - epoch: 5
-    batch_size: 1000
+  - epoch: 1
+    batch_size: 10000
     lr: 0.0001
     dropout: 0.2
     att_dropout: 0.2

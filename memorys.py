@@ -3,6 +3,9 @@ import dgl
 from layers import TimeEncode
 import time
 
+def _print(s):
+    return print(s)
+
 class MailBox():
 
     def __init__(self, memory_param, num_nodes, dim_edge_feat, _node_memory=None, _node_memory_ts=None,_mailbox=None, _mailbox_ts=None, _next_mail_pos=None, _update_mail_pos=None):
@@ -17,6 +20,9 @@ class MailBox():
         self.next_mail_pos = torch.zeros((num_nodes), dtype=torch.long) if _next_mail_pos is None else _next_mail_pos
         self.update_mail_pos = _update_mail_pos
         self.device = torch.device('cpu')
+        _print(f"node_memory {self.node_memory.size()}; node_memory_ts {self.node_memory_ts.size()}")
+        _print(f"mailbox {self.mailbox.size()}; mailbox_ts {self.mailbox_ts.size()}")
+        _print(f"next_mail_pos {self.next_mail_pos.size()}; update_mail_pos NoneType")
         
         
     def reset(self):
