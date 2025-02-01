@@ -311,7 +311,7 @@ if __name__ == '__main__':
             count = 0
             for ibatch, rows in df[:train_edge_end].groupby(train_group_index):
                 with nvtx.annotate(f"Batch {ibatch}", color="red"):
-                    print('Batch {:d}:'.format(ibatch))
+                    # print('Batch {:d}:'.format(ibatch))
                     t0 = time.time()
                     root_nodes = node_list[count]
                     ts = ts_list[count]
